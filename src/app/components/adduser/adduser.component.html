@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-offset-0" style="padding-left: 4%">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+      <table class="table-responsive">
+        <tr>
+          <td>{{'user.firstName' | translate}}</td>
+          <td><input type="text" class="form-control" style="margin-left:10%;width: 220%;" name="firstName"
+                     [(ngModel)]="user.firstName" required #firstName="ngModel">
+            <input type="hidden" [(ngModel)]="user.userId" name="userId">
+          </td>
+        </tr>
+        <tr *ngIf="firstName.touched && firstName.invalid">
+          <td></td>
+          <td class="error">{{'error.firstName' | translate}}</td>
+        </tr>
+        <tr>
+          <td style="padding-top: 5%"></td>
+        </tr>
+        <tr>
+          <td>{{'user.lastName' | translate}}</td>
+          <td>
+            <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName"
+                   required #lastName="ngModel" style="margin-left:10%;width: 220%;">
+          </td>
+        </tr>
+        <tr *ngIf="lastName.touched && lastName.invalid">
+          <td></td>
+          <td class="error">{{'error.lastName' | translate}}</td>
+        </tr>
+        <tr>
+          <td style="padding-top: 5%"></td>
+        </tr>
+        <tr>
+          <td>{{'user.employeeId' | translate}}</td>
+          <td>
+            <input type="number" name="employeeId" class="form-control" required #employeeId="ngModel"
+                   [(ngModel)]="user.employeeId"
+                   [ngStyle]="{'border': userExist ? '1px solid red':''}"
+                   style="margin-left:10%;width: 100%;">
+          </td>
+        </tr>
+        <tr *ngIf="employeeId.touched && employeeId.invalid">
+          <td></td>
+          <td class="error">{{'error.employeeId' | translate}}</td>
+        </tr>
+        <tr *ngIf="userExist">
+          <td></td>
+          <td>
+            <span class="error" style="padding-left:9%; padding-top: 5%;">
+              {{'userExist' | translate}}
+            </span>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-left: 40%;margin-top: 3%">
+        <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"
+                style="margin-right: 2%;padding-left: 3%;padding-right: 3%;"
+                *ngIf="!user.edit">{{'button.add' | translate}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"
+                style="margin-right: 2%;padding-left: 3%;padding-right: 3%;"
+                *ngIf="user.edit">{{'button.update' | translate}}</button>
+        <button type="button" class="btn btn-primary" style="padding-left: 3%;padding-right: 3%;" (click)="onReset();">
+          {{'button.reset' | translate}}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<app-listuser [user]="user"></app-listuser>

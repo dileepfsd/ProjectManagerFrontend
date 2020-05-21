@@ -1,23 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginService} from './service/login.service';
-import {Student} from './model/student';
+import {Component} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'frontend';
 
-  constructor(private loginService: LoginService) {
-  }
-
-  ngOnInit() {
-    this.loginService.login().subscribe(
-      (response: Student) => {
-        console.log(response);
-      }
-    );
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'fr']);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
 }

@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12 col-sm-12 col-sm-offset-0 col-xs-offset-0 col-md-offset-0" style="padding-left: 4%">
+    <form #projectForm="ngForm" (ngSubmit)="onSubmit();">
+
+      <table class="table-responsive">
+        <tr>
+          <td>
+            <div style="height: 40px;">{{'project.projectTitle' | translate}}:</div>
+          </td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <input type="text" class="form-control" name="projectTitle" #projectTitle="ngModel"
+                   [ngModel]="project?.projectTitle" required style="width: 238%">
+            <input type="hidden" name="projectId" ngModel #projectId="ngModel">
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngIf="projectTitle.touched && projectTitle.errors?.required">
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3" class="error">{{'error.projectTitle' | translate}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3" style="padding-top: 3%">
+            <input id="checkId" type="checkbox" style="width: 25px; height: 25px;"
+                   ngModel name="startEndDateCheckBox"
+                   #startEndDateCheckBox="ngModel" (change)="setDateField()"/>
+            <label for="checkId" style="font-size: 87%;font-weight: normal;">{{'startAndEndDate' | translate}}</label>
+          </td>
+          <td>
+            <input type="text" placeholder="Start Date" id="sDate" (change)="removeBorderColor();"
+                   [ngModel]="project?.startDate" name="startDate" #startDate="ngModel"
+                   [disabled]="dateFieldActive" class="form-control"
+                   onfocus="(this.type='date')" onblur="(this.type='text')" style="width:131px;">
+          </td>
+          <td style="padding-left: 2%;">
+            <input type="text" placeholder="End Date" id="eDate" (change)="removeBorderColor();"
+                   [ngModel]="project?.endDate" name="endDate" #endDate="ngModel"
+                   [disabled]="dateFieldActive" class="form-control"
+                   onfocus="(this.type='date')" onblur="(this.type='text')" style="width:131px;">
+          </td>
+        </tr>
+        <tr *ngIf="endDate.errors?.invalidDate">
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3" style="padding-bottom: 3%" class="error">End date is not before start date</td>
+        </tr>
+        <tr *ngIf="startEndDateCheckBox.errors?.emptyDate">
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3" style="padding-bottom: 3%" class="error">Dates are mandatory</td>
+        </tr>
+        <tr>
+          <td>{{'project.priority' | translate}}</td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <ng5-slider [options]="options" [ngModel]="project?.priority" name="priority" [(value)]="value"
+                        #priority="ngModel" style="margin-bottom:10%;width: 238%" id="slider"></ng5-slider>
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngIf="priority.errors?.invalidPriority">
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3" style="padding-bottom: 3%" class="error">{{'error.priority' | translate}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div style="height: 40px;padding-top: 15%;">{{'project.manager' | translate}}</div>
+          </td>
+          <td style="width: 7%;"></td>
+          <td colspan="3"><input type="text" class="form-control" disabled name="manager" ngModel
+                                 [ngStyle]="{'border': inValidManager ? '1px solid red':''}"
+                                 #manager="ngModel" style="width: 170%">
+          </td>
+          <td>
+            <div style="margin-left: 130%;height: 34px;padding-top: 5%">
+              <button type="button" class="btn btn-link"
+                      (click)="openModal(template)">{{'button.search' | translate}}</button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="manager.errors?.inValidManager">
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3" class="error">{{'error.manager' | translate}}</td>
+          <td></td>
+        </tr>
+      </table>
+      <div style="margin-left: 40%;margin-top: 3%">
+        <button type="submit" class="btn btn-primary" style="margin-right: 2%;padding-left: 3%;padding-right: 3%;"
+                [disabled]="!projectForm.valid" *ngIf="edit">{{'button.update' | translate}}
+        </button>
+        <button type="submit" class="btn btn-primary" style="margin-right: 2%;padding-left: 3%;padding-right: 3%;"
+                [disabled]="!projectForm.valid" *ngIf="!edit">&nbsp;{{'button.add' | translate}}&nbsp;
+        </button>
+        <button type="button" class="btn btn-primary" style="padding-left: 3%;padding-right: 3%;" (click)="onReset();">
+          {{'button.reset' | translate}}
+        </button>
+      </div>
+    </form>
+  </div>
+  <ng-template #template>
+    <div class="col-xs-offset-1">
+      <table class="table">
+        <tr>
+          <td></td>
+          <td style="padding-top: 3%;">
+            <input type="text" class="form-control" [(ngModel)]="searchVal" placeholder="Search..."></td>
+          <td style="padding-top: 3%;"></td>
+        </tr>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{'user.firstName' | translate}}</th>
+          <th>{{'user.lastName' | translate}}</th>
+          <th>{{'user.employeeId' | translate}}</th>
+          <th>{{'select' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user?.firstName}}</td>
+          <td>{{user?.lastName}}</td>
+          <td>{{user?.employeeId}}</td>
+          <td style="padding-left: 4%"><input type="radio" name="userSelect" (click)="selectUser(user)"></td>
+        </tr>
+        </tbody>
+      </table>
+      <div style="padding-left: 34%;font-size: medium;padding-bottom: 2%;" *ngIf="users.length<=0">
+        No User Found
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.submit' | translate}}</button>
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.close' | translate}}</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<app-listproject [project]="project"
+                 (projectEmitter)="displayProject($event);"
+                 (projectActionEmitter)="buttonAction($event)"
+></app-listproject>

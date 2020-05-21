@@ -1,0 +1,87 @@
+<div class="row" *ngIf="projects.length > 0  || search ">
+  <div class="col-xs-8"
+       style="padding-left: 4%">
+    <hr style="border-width: 2px;border-color: black;">
+    <input type="text" placeholder='Search ...' class="form-control" [(ngModel)]="searchVal"/>
+    <table class="table-responsive">
+      <tr>
+        <td style="padding-top: 5%;width: 13%;">{{'sort.labelBy' | translate}}</td>
+        <td style="width:7%;">&nbsp;</td>
+        <td style="padding-top: 4%;">
+          <button type="button" class="btn btn-primary" (click)="onSort('startDate');"> &nbsp;{{'sort.startDate' | translate}}&nbsp;</button>
+        </td>
+        <td style="width:7%;">&nbsp;</td>
+        <td style="padding-top: 4%;">
+          <button type="button" class="btn btn-primary" style="margin-right: 2%" (click)="onSort('endDate');">
+            &nbsp;&nbsp;{{'sort.endDate' | translate}}&nbsp;&nbsp;
+          </button>
+        </td>
+        <td style="width:7%;">&nbsp;</td>
+        <td style="padding-top: 4%;">
+          <button type="button" class="btn btn-primary" style="margin-right: 2%;" (click)="onSort('priority');"> &nbsp;&nbsp;{{'project.priority' | translate}}&nbsp;&nbsp;
+          </button>
+        </td>
+        <td style="width:7%;">&nbsp;</td>
+        <td style="padding-top: 4%;">
+          <button type="button" class="btn btn-primary" style="margin-right: 2%" (click)="onSort('completed');">
+            {{'sort.completed' | translate}}
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div class="row" *ngFor="let project of projects">
+      <hr style="border-top: 1px dashed gray;">
+      <div class="col-xs-8 col-md-8, col-sm-8,col-xs-offset-0">
+        <table class="table-responsive" style="background-color: lightgray;width: 105%">
+          <tr>
+            <td colspan="3" style="padding-bottom:6%;padding-left: 1%;">{{project.projectTitle}}:</td>
+          </tr>
+          <tr>
+            <td style="width: 24%;padding-left: 1%;">{{'project.noOfTasks' | translate}}</td>
+            <td>{{project.totalNoOfTasks}}</td>
+            <td></td>
+            <td>{{'sort.completed' | translate}}</td>
+            <td style="padding-left: 2%">{{project.totalNoOfCompletedTasks}}</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 1%;">{{'project.startDate' | translate}}</td>
+            <td>{{project.startDate}}</td>
+            <td style="width: 15%"></td>
+            <td>{{'project.endDate' | translate}}</td>
+            <td style="padding-left: 2%">{{project.endDate}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-xs-1 col-sm-1, col-md-1">
+        <table class="table-responsive">
+          <tr>
+            <td style="padding-bottom:50%;">{{'project.priority' | translate}}</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 22%;height: 40px;background-color: lightgray">{{project.priority}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <table class="table-responsive">
+          <tr>
+            <td>
+              <button type="button" class="btn btn-primary"
+                      style=" margin-left: 34%; padding-left: 25%; padding-right: 23%;"
+                      (click)="onUpdate(project.projectId)">{{'button.update' | translate}}
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-top: 12%;">
+              <button type="button" class="btn btn-primary" (click)="onDelete(project.projectId)"
+                      style="margin-left:34%;width: 100%;">&nbsp;{{'button.suspend' | translate}}&nbsp;
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <hr style="border-width: 2px;border-color: black;">
+    </div>
+  </div>
+</div>

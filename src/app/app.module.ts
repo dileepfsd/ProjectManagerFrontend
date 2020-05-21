@@ -8,6 +8,12 @@ import {DatePipe} from '@angular/common';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AdduserComponent} from './components/adduser/adduser.component';
+import {AppRoutingModule} from './app-routing.module';
+import { HeaderComponent } from './components/header/header.component';
+import { ListuserComponent } from './components/listuser/listuser.component';
+import { AddprojectComponent } from './components/addproject/addproject.component';
+import { ListprojectComponent } from './components/listproject/listproject.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -15,7 +21,12 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AdduserComponent,
+    HeaderComponent,
+    ListuserComponent,
+    AddprojectComponent,
+    ListprojectComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    FormsModule, Ng5SliderModule, HttpClientModule, ModalModule.forRoot()
+    FormsModule, AppRoutingModule, Ng5SliderModule, HttpClientModule, ModalModule.forRoot()
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

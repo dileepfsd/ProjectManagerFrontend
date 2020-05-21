@@ -1,0 +1,75 @@
+{
+  "header": {
+    "title": "Project ManagerF"
+  },
+  "navigation": {
+    "project": "Add ProjectF",
+    "addtask": "Add TaskF",
+    "user": "Add UserF",
+    "viewtask": "View TaskF"
+  },
+  "user": {
+    "firstName": "First NameF:",
+    "lastName": "Last NameF:",
+    "employeeId": "Employee IdF:"
+  },
+  "project": {
+    "projectTitle": "ProjectF",
+    "priority": "PriorityF:",
+    "manager": "ManagerF:",
+    "noOfTasks": "No of TasksF:",
+    "startDate": "Start DateF:",
+    "endDate": "End DateF:"
+  },
+  "task": {
+    "name": "TaskF:",
+    "parentName": "Parent TaskF",
+    "user": "UserF:"
+  },
+  "error": {
+    "firstName": "First name is mandatoryF",
+    "lastName": "Last name is mandatoryF",
+    "employeeId": "Employee id is mandatoryF",
+    "projectTitle": "Project is mandatoryF",
+    "priority": "Priority is mandatoryF",
+    "manager": "Manager is mandatoryF",
+    "task": "Task is mandatoryF",
+    "startDate": "Start Date is mandatoryF",
+    "endDate": "End Date is mandatoryF",
+    "invalidDate": "End date is not before start dateF",
+    "user": "User is mandatoryF",
+    "noUser": "No User FoundF"
+  },
+  "button": {
+    "add": "AddF",
+    "update": "UpdateF",
+    "reset": "ResetF",
+    "delete": "DeleteF",
+    "edit": "EditF",
+    "suspend": "SuspendF",
+    "search": "SearchF",
+    "submit": "SubmitF",
+    "close": "CloseF",
+    "update": "UpdateF",
+    "completed": "CompletedF"
+  },
+  "sort": {
+    "labelBy": "Sort ByF:",
+    "label": "SortF:",
+    "firstName": "First NameF",
+    "lastName": "Last NameF",
+    "employeeId": "IdF",
+    "startDate": "Start DateF",
+    "endDate": "End DateF",
+    "completed": "CompletedF"
+  },
+  "startAndEndDate": "Set Start and End DateF",
+  "sortTask": "Sort Task ByF",
+  "select": "SelectF",
+  "parentTask": "ParentTaskF",
+  "start": "StartF",
+  "end": "EndF",
+  "parent": "ParentF",
+  "endtask": "End TaskF",
+  "userExist": "Employee ID already ExistF"
+}

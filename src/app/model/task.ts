@@ -1,8 +1,8 @@
 export class Task {
-  private taskId: number;
-  private taskName: string;
-  private startDate: string;
-  private endDate: string;
-  private priority: number;
-  private status: string;
+  public taskId: number;
+  public taskName: string;
+  public startDate: string;
+  public endDate: string;
+  public priority: number;
+  public status: string;
 }

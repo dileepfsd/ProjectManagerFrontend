@@ -1,0 +1,14 @@
+.error {
+  color: red;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+#eDate.ng-invalid {
+  border: 1px solid red;
+}
+#sDate.ng-invalid {
+  border: 1px solid red;
+}

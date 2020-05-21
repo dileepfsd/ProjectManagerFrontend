@@ -1,6 +1,7 @@
 export class User {
-  private userId: number;
-  private firstName: string;
-  private lastName: string;
-  private employeeId: number;
+  public userId: number;
+  public firstName: string;
+  public lastName: string;
+  public employeeId: number;
+  public edit: boolean = false;
 }

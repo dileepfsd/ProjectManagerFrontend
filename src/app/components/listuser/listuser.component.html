@@ -1,0 +1,52 @@
+<div class="row" *ngIf="users.length > 0 || search">
+  <div class="col-xs-7 col-md-7 col-sm-7 col-sm-offset-0 col-xs-offset-0 col-md-offset-0" style="width: 60%;">
+    <hr style="border-width: 2px;border-color: black">
+    <table class="table-responsive">
+      <tr>
+        <td style="width: 70%;">
+          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchVal">
+        </td>
+        <td style="width: 5%"></td>
+        <td>{{'sort.label' | translate}}</td>
+        <td>
+          <button type="button" style=" font-size: 12px;" (click)="onSort('firstName');" class="btn btn-primary">
+            {{'sort.firstName' | translate}}
+          </button>
+        </td>
+        <td style="width: 1%">&nbsp;</td>
+        <td>
+          <button type="button" style=" font-size: 12px;" (click)="onSort('lastName');" class="btn btn-primary">
+            {{'sort.lastName' | translate}}
+          </button>
+        </td>
+        <td style="width: 1%">&nbsp;</td>
+        <td>
+          <button type="button" style=" font-size: 12px;" (click)="onSort('employeeId');" class="btn btn-primary">
+            {{'sort.employeeId' | translate}}
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div class="table-responsive" *ngFor="let user of users" style="margin-left: 2%">
+      <hr style="border-top: 1px dashed gray;">
+      <div class="list-group  col-xs-8">
+        <li class="list-group-item" style="border: none; padding-top: 0; padding-bottom: 0;">{{user.firstName}} </li>
+        <li class="list-group-item" style="border: none;padding-bottom: 0px">{{user.lastName}}</li>
+        <li class="list-group-item" style="border: none;padding-bottom: 0px">{{user.employeeId}}</li>
+      </div>
+      <div class="col-xs-4">
+        <div>
+          <button type="button" class="btn btn-primary" style="padding-left: 28%;padding-right: 29%;margin-left: 30%;"
+                  (click)="onEdit(user.userId);">{{'button.edit' | translate}}
+          </button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary"
+                  style="margin-top: 4%;margin-left: 30%;padding-left: 24%;padding-right: 24%;"
+                  (click)="onDelete(user.userId)">{{'button.delete' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
