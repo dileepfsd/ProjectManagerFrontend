@@ -17,11 +17,15 @@ export class ProjectService {
   createProject(project: Project): Observable<Project> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify(project);
-    return this.http.post<Project>(this.projectHttpUrl + 'create', body,{ 'headers': headers });
+    return this.http.post<Project>(this.projectHttpUrl + 'create', body, {'headers': headers});
   }
 
   findAllProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(this.projectHttpUrl + 'findAllProjects');
+  }
+
+  findAllProjectsWithTaskStatus(): Observable<Project[]> {
+    return this.http.get<Project[]>(this.projectHttpUrl + 'findAllProjectsWithTaskStatus');
   }
 
   findAllProjectByInput(input: string): Observable<Project[]> {

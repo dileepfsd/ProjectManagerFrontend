@@ -42,7 +42,8 @@
           <td>{{'project.priority' | translate}}:</td>
           <td style="width: 7%;"></td>
           <td colspan="3">
-            <ng5-slider [options]="options" [(ngModel)]="task.priority" name="priority" #priority="ngModel" [disabled]='endTask'
+            <ng5-slider [options]="options" [(ngModel)]="task.priority" name="priority" #priority="ngModel"
+                        [disabled]='endTask'
                         style="margin-bottom:10%;width: 167%">
             </ng5-slider>
             <div *ngIf="priority.errors?.invalidPriority" class="error" style="margin-bottom: 4%">Priority is mandatory
@@ -64,7 +65,8 @@
           </td>
           <td>
             <div style="margin-left: 70%;height: 40px;">
-              <button type="button" class="btn btn-link" (click)="loadParentTask();openModal(parentTaskTemplate)">
+              <button type="button" class="btn btn-link" (click)="loadParentTask();openModal(parentTaskTemplate)"
+                      *ngIf="!endTask">
                 {{'button.search' | translate}}
               </button>
             </div>
@@ -128,8 +130,8 @@
       <table class="table">
         <thead>
         <tr>
-          <th>{{'button.parentTask' | translate}}</th>
-          <th>{{'button.select' | translate}}</th>
+          <th>{{'parentTask' | translate}}</th>
+          <th>{{'select' | translate}}</th>
         </tr>
         </thead>
         <tbody>

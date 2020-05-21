@@ -46,7 +46,7 @@ export class ListprojectComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.projectService.findAllProjects().subscribe(
+    this.projectService.findAllProjectsWithTaskStatus().subscribe(
       (projects: Project[]) => {
         this.projects = projects;
       }
