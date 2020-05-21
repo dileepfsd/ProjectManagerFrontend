@@ -20,7 +20,7 @@
           </td>
           <td style="width: 7%;"></td>
           <td colspan="3">
-            <input type="text" [(ngModel)]="task.taskName" name="taskName" #taskName="ngModel"
+            <input type="text" [(ngModel)]="task.taskName" name="taskName" #taskName="ngModel" [disabled]='endTask'
                    class="form-control" style="width: 167%" required>
             <span *ngIf="taskName.touched && taskName.errors?.required" class="error">Task is mandatory</span>
           </td>
@@ -42,7 +42,7 @@
           <td>{{'project.priority' | translate}}:</td>
           <td style="width: 7%;"></td>
           <td colspan="3">
-            <ng5-slider [options]="options" [(ngModel)]="task.priority" name="priority" #priority="ngModel"
+            <ng5-slider [options]="options" [(ngModel)]="task.priority" name="priority" #priority="ngModel" [disabled]='endTask'
                         style="margin-bottom:10%;width: 167%">
             </ng5-slider>
             <div *ngIf="priority.errors?.invalidPriority" class="error" style="margin-bottom: 4%">Priority is mandatory
@@ -76,7 +76,7 @@
           <td style="width: 7%;"></td>
           <td style="padding-top: 2%">
             <input type="text" id="sDate" (change)="removeBorderColor();" required class="form-control"
-                   [(ngModel)]="task.startDate" name="startDate" #startDate="ngModel"
+                   [(ngModel)]="task.startDate" name="startDate" #startDate="ngModel" [disabled]='endTask'
                    onfocus="(this.type='date')" onblur="(this.type='text')">
             <span *ngIf="startDate.touched && startDate.errors?.required" class="error">Start Date is required</span>
           </td>
@@ -84,7 +84,7 @@
           <td style="padding-top: 3%;">{{'project.endDate' | translate}}:</td>
           <td style="padding-top: 2%">
             <input type="text" id="eDate" (change)="removeBorderColor();" required class="form-control"
-                   [(ngModel)]="task.endDate" name="endDate" #endDate="ngModel"
+                   [(ngModel)]="task.endDate" name="endDate" #endDate="ngModel" [disabled]='endTask'
                    onfocus="(this.type='date')" onblur="(this.type='text')">
             <span *ngIf="endDate.touched && endDate.errors?.required" class="error">End Date is required</span>
           </td>

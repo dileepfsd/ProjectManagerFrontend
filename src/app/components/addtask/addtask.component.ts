@@ -270,6 +270,10 @@ export class AddtaskComponent implements OnInit {
   }
 
   onReset() {
-    this.taskForm.reset();
+    this.taskForm.control.get('projectTitle').setValue('');
+    this.taskForm.control.get('priority').setValue('');
+    this.taskForm.control.get('parentTaskName').setValue('');
+    this.taskForm.control.get('taskName').setValue('');
+    this.taskForm.control.get('user').setValue('');
   }
 }

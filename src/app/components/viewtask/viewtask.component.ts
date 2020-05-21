@@ -21,6 +21,7 @@ export class ViewtaskComponent implements OnInit {
   bsModalRef: BsModalRef;
   project: Project;
   projectName: string;
+  projectId: number;
   display: boolean = false;
 
   @ViewChild('viewTaskForm') viewTaskForm: NgForm;
@@ -40,11 +41,13 @@ export class ViewtaskComponent implements OnInit {
     this.tasks = [];
 
     this.projectName = this.activatedRoute.snapshot.queryParamMap.get('projectName');
+    this.projectId = +this.activatedRoute.snapshot.queryParamMap.get('pId');
     if (this.projectName != null) {
-      this.projectService.findAllProjectByInput(this.projectName).subscribe(
-        (projects: Project[]) => {
-          this.projects = projects;
-        });
+      this.taskService.findTasksByProjectId(this.projectId).subscribe(
+        (tasks: Task[]) => {
+          this.tasks = tasks;
+        }
+      );
     }
   }
 
@@ -57,7 +60,7 @@ export class ViewtaskComponent implements OnInit {
     this.taskService.updateTaskStatus(task).subscribe(
       () => {
         this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(() => {
-          this.router.navigate([decodeURI(this.location.path())], {queryParams: {projectName: this.projectName}});
+          this.router.navigate([decodeURI(this.location.path())], {queryParams: {projectName: this.projectName, pId: this.projectId}});
         });
       }
     )
@@ -108,6 +111,7 @@ export class ViewtaskComponent implements OnInit {
   selectProject(project: Project) {
     this.project = project;
     this.projectName = this.project.projectTitle;
+    this.projectId = this.project.projectId;
   }
 
 

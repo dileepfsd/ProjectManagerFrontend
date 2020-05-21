@@ -25,6 +25,8 @@ export class EdittaskComponent implements OnInit {
   parentTasks: ParentTask[] = [];
   parentTask: ParentTask;
   projectName: string;
+  projectId: number;
+  endTask: boolean;
 
   @ViewChild('taskForm') taskForm: NgForm;
   @Input() errors: ValidationErrors;
@@ -48,12 +50,16 @@ export class EdittaskComponent implements OnInit {
 
   ngOnInit() {
     this.task = this.taskService.getTask();
+    if ('COMPLETE' === this.task.status) {
+      this.endTask = true;
+    }
     if (this.task.parentTask === null) {
       this.parentTask = new ParentTask();
       this.task.parentTask = this.parentTask;
     } else {
       this.parentTask = this.task.parentTask;
     }
+    this.projectId = this.task.project.projectId;
   }
 
   onSubmit() {
@@ -82,13 +88,13 @@ export class EdittaskComponent implements OnInit {
     if ((d1 > d2) || (priority <= 0)) {
       return;
     }
-    this.projectName = this.project.projectTitle;
+    this.projectName = this.taskForm.control.get('projectTitle').value;
     this.task.userId = this.user.userId;
     this.task.projectId = this.project.projectId;
     this.task.parentTaskId = this.taskForm.control.get('parentId').value;
     this.taskService.updateTask(this.task).subscribe(
       (response: Task) => {
-        this.router.navigate(['/viewtask'], {queryParams: {projectName: this.projectName}});
+        this.router.navigate(['/viewtask'], {queryParams: {projectName: this.projectName, pId: this.projectId}});
         this.taskForm.reset();
       }
     );
