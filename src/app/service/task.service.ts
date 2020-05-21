@@ -43,6 +43,10 @@ export class TaskService {
     return this.http.get<ParentTask[]>(this.projectHttpUrl + 'findAllParentTasksByInput/' + input);
   }
 
+  findTasksByProjectId(id: number): Observable<Task[]> {
+    return this.http.get<Task[]>(this.projectHttpUrl + 'findTasksByProjectId/' + id);
+  }
+
   setTask(task: Task) {
     this.task = task;
   }

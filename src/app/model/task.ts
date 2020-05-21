@@ -1,3 +1,6 @@
+import {ParentTask} from './parentTask';
+import {Project} from './project';
+
 export class Task {
   public taskId: number;
   public taskName: string;
@@ -8,4 +11,7 @@ export class Task {
   public userId: number;
   public projectId: number;
   public parentTaskId: number;
+  public parentTask: ParentTask;
+  public project: Project;
+  public userName: string;
 }

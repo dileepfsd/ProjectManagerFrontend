@@ -5,6 +5,7 @@ import {AddprojectComponent} from './components/addproject/addproject.component'
 import {AddtaskComponent} from './components/addtask/addtask.component';
 import {RefreshComponent} from './components/refresh/refresh.component';
 import {ViewtaskComponent} from './components/viewtask/viewtask.component';
+import {EdittaskComponent} from './components/edittask/edittask.component';
 
 
 const appRoutes: Routes = [
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
   },
   {path: 'addtask', component: AddtaskComponent},
   {path: 'refresh', component: RefreshComponent },
-  {path: 'viewtask', component: ViewtaskComponent}
+  {path: 'viewtask', component: ViewtaskComponent},
+  {path: 'edittask', component: EdittaskComponent }
  ];
 
 @NgModule({

@@ -1,3 +1,145 @@
-<p>
-  viewtask works!
-</p>
+<div class="row">
+  <div class="col-xs-12 col-sm-offset-0" style="padding-left: 4%">
+    <form #viewTaskForm="ngForm">
+      <table class="table-responsive">
+        <tr>
+          <td>{{'project.projectTitle' | translate}}:</td>
+          <td style="padding-left: 2%; width: 43%;padding-right: 2%;">
+            <input type="text" id="projectTitle" class="form-control" [ngModel]="project.projectTitle"
+                   #projectTitle="ngModel" readonly name="projectTitle">
+          </td>
+          <td>
+            <button type="submit" class="btn btn-link"
+                    (click)="listAllProjects();openModal(projectTemplate)">{{'button.search' | translate}}
+            </button>
+          </td>
+          <td style="padding-left: 3%; width: 18%;">{{'sortTask' | translate}}:</td>
+          <td>
+            <button type="button" style=" font-size: 12px; margin-right: 3%; padding-left: 16%; padding-right: 16%;"
+                    (click)="onSort('startDate');" class="btn btn-primary">{{'project.startDate' | translate}}
+            </button>
+          </td>
+          <td style="padding-right: 20px;">&nbsp;</td>
+          <td>
+            <button type="button" class="btn btn-primary"
+                    style=" font-size: 12px; margin-right: 3%; padding-left: 16%; padding-right: 16%;"
+                    (click)="onSort('endDate');">
+              {{'project.endDate' | translate}}
+            </button>
+          </td>
+          <td style="padding-right: 20px;">&nbsp;</td>
+          <td>
+            <button type="button" class="btn btn-primary"
+                    style=" font-size: 12px; margin-right: 3%; padding-left: 16%; padding-right: 16%;"
+                    (click)="onSort('priority');">
+              {{'project.priority' | translate}}
+            </button>
+          </td>
+          <td style="padding-right: 20px;">&nbsp;</td>
+          <td>
+            <button type="button" class="btn btn-primary"
+                    style=" font-size: 12px; margin-right: 3%; padding-left: 16%; padding-right: 16%;"
+                    (click)="onSort('completed');">
+              {{'button.completed' | translate}}
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <hr>
+    <ng-container *ngIf="tasks && tasks.length > 0">
+      <table class="table" *ngFor="let task of tasks" style="table-layout: fixed;word-wrap: break-word;">
+        <thead>
+        <tr>
+          <th style="width:20%;">{{'task.name' | translate}}</th>
+          <th style="width:20%;">{{'parent' | translate}}</th>
+          <th>{{'project.priority' | translate}}</th>
+          <th>{{'start' | translate}}</th>
+          <th>{{'end' | translate}}</th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{task.taskName}}</td>
+          <td *ngIf="task.parentTask!=null">
+            {{task.parentTask.parentTaskName}}
+          </td>
+          <td *ngIf="task.parentTask===null">
+            This task has no parent
+          </td>
+          <td>{{task.priority}}</td>
+          <td>{{task.startDate}}</td>
+          <td>{{task.endDate}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" style=" font-size: 12px; margin-right: 3%;
+           padding-left: 21%; padding-right: 16%; width: 100%" (click)="onEditTask(task);">{{'button.edit' | translate}}
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary" [disabled]="task.status==='COMPLETE'"
+                    style=" font-size: 12px; margin-right: 3%;
+           padding-left: 10%; padding-right: 10%; " (click)="updateTaskStatus(task);">{{'endtask' | translate}}
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-container *ngIf="tasks && tasks.length == 0 && display">
+      <table class="table" style="table-layout: fixed;">
+        <thead>
+        <tr>
+          <th style="width:20%;"></th>
+          <th style="width:20%;"></th>
+          <th style="width: 20%;padding-bottom: 7%;pdding-top: 5%;">No Task Found</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+      </table>
+    </ng-container>
+  </div>
+  <ng-template #projectTemplate>
+    <div class="col-xs-offset-1">
+      <table class="table">
+        <tr>
+          <td></td>
+          <td style="padding-top: 3%;">
+            <input type="text" class="form-control" [(ngModel)]="projectSearchVal" placeholder="Search..."></td>
+          <td style="padding-top: 3%;"></td>
+        </tr>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{'project.projectTitle' | translate}}</th>
+          <th>{{'project.startDate' | translate}}</th>
+          <th>{{'project.endDate' | translate}}</th>
+          <th>{{'project.priority' | translate}}</th>
+          <th>{{'select' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let project of projects">
+          <td>{{project.projectTitle}}</td>
+          <td>{{project.startDate}}</td>
+          <td>{{project.endDate}}</td>
+          <td>{{project.priority}}</td>
+          <td style="padding-left: 4%"><input type="radio" name="project" (click)="selectProject(project)"></td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="projects.length<=0" style="padding-left: 34%;font-size: medium;padding-bottom: 2%;">
+        No Project Found
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" (click)="displayTasks();bsModalRef.hide()">{{'button.submit' | translate}}</button>
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.close' | translate}}</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

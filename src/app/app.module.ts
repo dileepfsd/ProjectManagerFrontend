@@ -17,6 +17,7 @@ import { ListprojectComponent } from './components/listproject/listproject.compo
 import { AddtaskComponent } from './components/addtask/addtask.component';
 import { RefreshComponent } from './components/refresh/refresh.component';
 import { ViewtaskComponent } from './components/viewtask/viewtask.component';
+import { EdittaskComponent } from './components/edittask/edittask.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -32,7 +33,8 @@ export function createTranslateLoader(http: HttpClient) {
     ListprojectComponent,
     AddtaskComponent,
     RefreshComponent,
-    ViewtaskComponent
+    ViewtaskComponent,
+    EdittaskComponent
   ],
   imports: [
     BrowserModule,
