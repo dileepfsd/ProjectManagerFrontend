@@ -177,12 +177,11 @@ export class AddprojectComponent implements OnInit {
     this.projectForm.control.get('endDate').setValue(project.endDate);
     this.projectForm.control.get('priority').setValue(project.priority);
     this.projectForm.control.get('projectId').setValue(project.projectId);
-    /*    if (project.users.length > 0) {
-          this.projectForm.control.get('manager').setValue(project.users[0].firstName);
-        }
-        if (project.users.length === 0) {
-          this.projectForm.control.get('manager').setValue('');
-        }*/
+    if (project.managerName != null) {
+      this.projectForm.control.get('manager').setValue(project.managerName);
+    } else {
+      this.projectForm.control.get('manager').setValue('');
+    }
     this.projectForm.control.get('startEndDateCheckBox').setValue(true);
   }
 

@@ -1,0 +1,25 @@
+.error {
+  color: red;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+#eDate.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+#sDate.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+#projectTitle.ng-invalid {
+  border: 1px solid red;
+}
+#parentTaskName.ng-invalid {
+  border: 1px solid red;
+}
+#user.ng-invalid {
+  border: 1px solid red;
+}

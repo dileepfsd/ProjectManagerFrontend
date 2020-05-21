@@ -14,6 +14,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { ListuserComponent } from './components/listuser/listuser.component';
 import { AddprojectComponent } from './components/addproject/addproject.component';
 import { ListprojectComponent } from './components/listproject/listproject.component';
+import { AddtaskComponent } from './components/addtask/addtask.component';
+import { RefreshComponent } from './components/refresh/refresh.component';
+import { ViewtaskComponent } from './components/viewtask/viewtask.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -26,7 +29,10 @@ export function createTranslateLoader(http: HttpClient) {
     HeaderComponent,
     ListuserComponent,
     AddprojectComponent,
-    ListprojectComponent
+    ListprojectComponent,
+    AddtaskComponent,
+    RefreshComponent,
+    ViewtaskComponent
   ],
   imports: [
     BrowserModule,

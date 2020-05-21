@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output, OnChanges, SimpleChanges} from '
 import {Project} from '../../model/project';
 import {ProjectService} from '../../service/project.service';
 import {ProjectSortService} from '../../service/project-sort.service';
+
 @Component({
   selector: 'app-listproject',
   templateUrl: './listproject.component.html',

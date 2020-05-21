@@ -1,0 +1,248 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12 col-sm-12 col-sm-offset-0 col-xs-offset-0 col-md-offset-0" style="padding-left: 4%">
+    <form #taskForm="ngForm" (ngSubmit)="onSubmit()">
+      <table class="table-responsive">
+        <tr>
+          <td style="padding-top: 3%;">
+            <div style="height: 40px;">{{'project.projectTitle' | translate}}:</div>
+          </td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <input type="text" class="form-control" name="projectTitle" readonly style="width: 130%"
+                   [ngModel]="projectName" #projectTitle="ngModel" id="projectTitle">
+            <span *ngIf="projectTitle.errors?.inValidProject" class="error">{{'error.projectTitle' | translate}}</span>
+          </td>
+          <td>
+            <div style="margin-left: 70%;height: 40px;">
+              <button type="button" class="btn btn-link" (click)="openModal(projectTemplate)"
+                      [disabled]="parentTaskRef">{{'button.search' | translate}}</button>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding-top: 2%;">
+            <div style="height: 40px;">{{'task.name' | translate}}</div>
+          </td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <input type="text" [ngModel]="task?.taskName" name="taskName" #taskName="ngModel"
+                   class="form-control" style="width: 167%" required>
+            <span *ngIf="taskName.touched && taskName.errors?.required"
+                  class="error">{{'error.task' | translate}}</span>
+          </td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td style="padding-top: 8%;"></td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <input id="checkid" ngModel name="parentTask" #parentTask="ngModel"
+                   type="checkbox" style="width: 25px; height: 25px;" (change)="parentTaskConfirm();"/>
+            <label for="checkid" style="font-size: 108%;font-weight: normal;">{{'task.parentName' | translate}}</label>
+          </td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>{{'project.priority' | translate}}</td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <ng5-slider [options]="options" [ngModel]="task?.priority" name="priority" #priority="ngModel"
+                        [(value)]="value"
+                        [disabled]="parentTaskRef" style="margin-bottom:10%;width: 167%">
+            </ng5-slider>
+            <div *ngIf="priority.errors?.invalidPriority" class="error"
+                 style="margin-bottom: 4%">{{'error.priority' | translate}}
+            </div>
+          </td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td style="padding-top: 3%;">
+            <div style="height: 40px;">{{'task.parentName' | translate}}:</div>
+          </td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <input type="text" readonly ngModel name="parentTaskName" #parentTaskName="ngModel" id="parentTaskName"
+                   class="form-control" style="width: 130%">
+          </td>
+          <td>
+            <div style="margin-left: 70%;height: 40px;">
+              <button type="button" class="btn btn-link" (click)="loadParentTask();openModal(parentTaskTemplate)"
+                      [disabled]="parentTaskRef">
+                {{'button.search' | translate}}
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding-top: 3%;">{{'project.startDate' | translate}}</td>
+          <td style="width: 7%;"></td>
+          <td style="padding-top: 2%">
+            <input type="text" id="sDate" (change)="removeBorderColor();" required class="form-control"
+                   [ngModel]="task?.startDate" name="startDate" #startDate="ngModel" [readOnly]="parentTaskRef"
+                   onfocus="(this.type='date')" onblur="(this.type='text')">
+            <span *ngIf="startDate.touched && startDate.errors?.required"
+                  class="error">{{'error.startDate' | translate}}</span>
+          </td>
+          <td style="width:5%;">&nbsp;</td>
+          <td style="padding-top: 3%;">{{'project.endDate' | translate}}</td>
+          <td style="padding-top: 2%">
+            <input type="text" id="eDate" (change)="removeBorderColor();" required class="form-control"
+                   [ngModel]="task?.endDate" name="endDate" #endDate="ngModel" [readOnly]="parentTaskRef"
+                   onfocus="(this.type='date')" onblur="(this.type='text')">
+            <span *ngIf="endDate.touched && endDate.errors?.required"
+                  class="error">{{'error.endDate' | translate}}</span>
+          </td>
+        </tr>
+        <tr *ngIf="endDate.errors?.inValidDate">
+          <td></td>
+          <td style="width: 7%;"></td>
+          <td class="error"> {{'error.invalidDate' | translate}}</td>
+        </tr>
+
+        <tr>
+          <td>
+            <div style="height: 0px;">{{'task.user' | translate}}</div>
+          </td>
+          <td style="width: 7%;"></td>
+          <td colspan="3">
+            <input type="text" readonly [ngModel]="firstName" name="user" #user="ngModel" class="form-control" id="user"
+                   style="margin-top:10%;width: 130%">
+            <span *ngIf="user.errors?.inValidUser" class="error">{{'error.user' | translate}}</span>
+          </td>
+          <td>
+            <div style="margin-left: 70%;height: 0px;">
+              <button type="button" class="btn btn-link" (click)="openModal(userTemplate)"
+                      [disabled]="parentTaskRef">{{'button.search' | translate}}</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-left:30%;margin-top: 3%">
+        <button type="submit" [disabled]="!taskForm.valid"
+                class="btn btn-primary" style="margin-right: 2%;padding-left: 3%;padding-right: 3%;">
+          &nbsp;&nbsp;{{'button.add' | translate}}&nbsp;&nbsp;
+        </button>
+        <button type="button" class="btn btn-primary" style="padding-left: 3%;padding-right: 3%;" (click)="onReset();">
+          {{'button.reset' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <ng-template #userTemplate>
+    <div class="col-xs-offset-1">
+      <table class="table">
+        <tr>
+          <td></td>
+          <td style="padding-top: 3%;">
+            <input type="text" class="form-control" [(ngModel)]="searchVal" placeholder="Search..."></td>
+          <td style="padding-top: 3%;"></td>
+        </tr>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{'user.firstName' | translate}}</th>
+          <th>{{'user.lastName' | translate}}</th>
+          <th>{{'user.employeeId' | translate}}</th>
+          <th>{{'select' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.employeeId}}</td>
+          <td style="padding-left: 4%"><input type="radio" name="userRadio" (click)="selectUser(user)"></td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="users.length<=0" style="padding-left: 34%;font-size: medium;padding-bottom: 2%;">
+        {{'error.noUser' | translate}}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.submit' | translate}}</button>
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.close' | translate}}</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #projectTemplate>
+    <div class="col-xs-offset-1">
+      <table class="table">
+        <tr>
+          <td></td>
+          <td style="padding-top: 3%;">
+            <input type="text" class="form-control" [(ngModel)]="projectSearchVal" placeholder="Search..."></td>
+          <td style="padding-top: 3%;"></td>
+        </tr>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{'project.projectTitle' | translate}}</th>
+          <th>{{'project.startDate' | translate}}</th>
+          <th>{{'project.endDate' | translate}}</th>
+          <th>{{'project.priority' | translate}}</th>
+          <th>{{'select' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let project of projects">
+          <td>{{project.projectTitle}}</td>
+          <td>{{project.startDate}}</td>
+          <td>{{project.endDate}}</td>
+          <td>{{project.priority}}</td>
+          <td style="padding-left: 4%"><input type="radio" name="projectRadio" (click)="selectProject(project)"></td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="projects.length<=0" style="padding-left: 34%;font-size: medium;padding-bottom: 2%;">
+        No Project Found
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.submit' | translate}}</button>
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.close' | translate}}</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #parentTaskTemplate>
+    <div class="col-xs-offset-1">
+      <table class="table">
+        <tr>
+          <td></td>
+          <td style="padding-top: 3%;">
+            <input type="text" class="form-control" [(ngModel)]="parentTaskSearchVal" placeholder="Search..."></td>
+          <td style="padding-top: 3%;"></td>
+        </tr>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{'parentTask' | translate}}</th>
+          <th>{{'select' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let parent of parentTasks">
+          <td>{{parent.parentTaskName}}</td>
+          <td style="padding-left: 4%"><input type="radio" name="parentTaskRadio" (click)="selectParentTask(parent)">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="parentTasks.length<=0" style="padding-left: 34%;font-size: medium;padding-bottom: 2%;">
+        No Parent Task Found
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.submit' | translate}}</button>
+        <button class="btn btn-sm" (click)="bsModalRef.hide()">{{'button.close' | translate}}</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

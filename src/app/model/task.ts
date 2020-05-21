@@ -5,4 +5,7 @@ export class Task {
   public endDate: string;
   public priority: number;
   public status: string;
+  public userId: number;
+  public projectId: number;
+  public parentTaskId: number;
 }

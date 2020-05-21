@@ -7,4 +7,5 @@ export class Project {
   public totalNoOfTasks: number;
   public totalNoOfCompletedTasks: number;
   public userId: number;
+  public managerName: string;
 }
