@@ -32,6 +32,10 @@ export class ProjectService {
     return this.http.get<Project[]>(this.projectHttpUrl + 'findAllProjectByInput/' + input);
   }
 
+  findAllProjectByInputWithTask(input: string): Observable<Project[]> {
+    return this.http.get<Project[]>(this.projectHttpUrl + 'findAllProjectByInputWithTask/' + input);
+  }
+
   findProjectById(id: number): Observable<Project> {
     return this.http.get<Project>(this.projectHttpUrl + 'findProjectById/' + id);
   }

@@ -34,7 +34,7 @@ export class ListprojectComponent implements OnChanges {
       input = 'default';
     };
     this.search = true;
-    this.projectService.findAllProjectByInput(input).subscribe(
+    this.projectService.findAllProjectByInputWithTask(input).subscribe(
       (projects: Project[]) => {
         this.projects = projects;
       }
