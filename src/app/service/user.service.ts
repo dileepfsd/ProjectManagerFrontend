@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 })
 export class UserService {
 
-  projectHttpUrl: string = environment.apiUrl + '/user/';
+  projectHttpUrl: string = environment.apiUrl + '/user/user/';
 
   public usersEmitter: EventEmitter<User> = new EventEmitter<User>();
 

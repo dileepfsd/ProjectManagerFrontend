@@ -11,7 +11,7 @@ import {Project} from '../model/project';
 })
 export class TaskService {
 
-  projectHttpUrl: string = environment.apiUrl + '/task/';
+  projectHttpUrl: string = environment.apiUrl + '/task/task/';
   task: Task;
 
   constructor(private http: HttpClient) {
